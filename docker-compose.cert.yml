@@ -19,7 +19,7 @@ services:
       - .env
     # и снова мониторуем директорию nginx
     volumes:
-      - ./nginx/:/etc/nginx/
+      - ./nginx/prod/:/etc/nginx/
     build:
       context: ./certificate
       dockerfile: Dockerfile
