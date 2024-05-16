@@ -45,8 +45,6 @@ services:
       - static_content:/usr/src/app/static:ro
       - media_content:/usr/src/app/media:ro
       - dist:/frontend/dist/
-      # - ./nginx/prod/fullchain.pem:/etc/nginx/ssl/live/orgtree.vinsit.ru/fullchain.pem
-      # - ./nginx/prod/privkey.pem:/etc/nginx/ssl/live/orgtree.vinsit.ru/privkey.pem
     ports:
       - "80:80"
       - "443:443"
