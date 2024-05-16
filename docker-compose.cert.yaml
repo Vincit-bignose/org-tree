@@ -1,7 +1,6 @@
 services:
   nginx:
     image: nginx:1.23.3
-    # монтируем директорию nginx и сертификат с ключом
     volumes:
       - ./nginx/prod/prod.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/prod/cert.pem:/etc/cert.pem
@@ -15,13 +14,11 @@ services:
       - "6000:80"
     env_file:
       - .env
-    # и снова мониторуем директорию nginx
     volumes:
       - ./nginx/prod/:/etc/nginx/
     build:
       context: ./certificate
       dockerfile: Dockerfile
-      # задаем переменные среды
       args:
         DOMAIN_EMAIL: ${DOMAIN_EMAIL}
         DOMAIN_URL: ${DOMAIN_URL}
