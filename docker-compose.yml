@@ -34,21 +34,6 @@ services:
     volumes:
       - dist:/frontend/dist/
 
-  nginx:
-    image: nginx:1.25-alpine
-    container_name: org_tree_nginx
-    depends_on:
-      - backend
-    restart: always
-    volumes:
-      - ./nginx/prod/prod.conf:/etc/nginx/conf.d/default.conf:ro
-      - static_content:/usr/src/app/static:ro
-      - media_content:/usr/src/app/media:ro
-      - dist:/frontend/dist/
-    ports:
-      - "80:80"
-      - "443:443"
-
 volumes:
   postgres_data:
   static_content:
