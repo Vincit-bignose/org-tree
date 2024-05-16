@@ -32,7 +32,7 @@ services:
       dockerfile: Dockerfile
     container_name: org_tree_frontend
     volumes:
-      - ./dist:/frontend/dist/
+      - /frontend/dist/:/frontend/dist/
 
 volumes:
   postgres_data:
