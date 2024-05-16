@@ -21,7 +21,7 @@ services:
     volumes:
       - ./nginx/:/etc/nginx/
     build:
-      context: ./certbot
+      context: ./certificate
       dockerfile: Dockerfile
       # задаем переменные среды
       args:
