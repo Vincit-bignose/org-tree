@@ -7,7 +7,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: backend
+    container_name: org_tree_backend
     command: >
       /bin/sh -c "python3 manage.py migrate --no-input && python3 manage.py collectstatic --no-input && python3 manage.py runserver 0.0.0.0:8000"
     volumes:
@@ -25,7 +25,7 @@ services:
 
   db:
     image: postgres:15
-    container_name: db
+    container_name: org_tree_db
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data/
@@ -38,7 +38,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
-    container_name: frontend
+    container_name: org_tree_frontend
     volumes:
       - ./frontend:/frontend
       - /frontend/node_modules
@@ -51,7 +51,7 @@ services:
     build:
       context: ./nginx/dev
       dockerfile: Dockerfile
-    container_name: nginx
+    container_name: org_tree_nginx
     depends_on:
       - backend
     volumes:

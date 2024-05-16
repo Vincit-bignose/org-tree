@@ -3,7 +3,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: backend
+    container_name: org_tree_backend
     restart: always
     command: ./start.sh
     volumes:
@@ -18,7 +18,7 @@ services:
 
   db:
     image: postgres:15
-    container_name: db
+    container_name: org_tree_db
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data/
@@ -29,13 +29,13 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: frontend
+    container_name: org_tree_frontend
     volumes:
       - dist:/frontend/dist/
 
   nginx:
     image: nginx:1.25-alpine
-    container_name: nginx
+    container_name: org_tree_nginx
     depends_on:
       - backend
     restart: always
