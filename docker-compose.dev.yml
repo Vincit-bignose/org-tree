@@ -1,0 +1,68 @@
+networks:
+  org-tree:
+    driver: bridge
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    command: ./start.sh
+    volumes:
+      - static_content:/home/app/backend/staticfiles
+      - media_content:/home/app/backend/media
+      # - ./backend:/home/app/backend
+    env_file:
+      - ./backend/.env.dev
+    networks:
+      - org-tree
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: db
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./backend/db/.env.dev.db
+    networks:
+      - org-tree
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: frontend
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    ports:
+      - "5173:5173"
+    networks:
+      - org-tree
+
+  nginx:
+    build:
+      context: ./nginx/dev
+      dockerfile: Dockerfile
+    container_name: nginx
+    depends_on:
+      - backend
+    volumes:
+      - ./nginx/dev/dev.conf:/etc/nginx/nginx.conf:ro
+      - static_content:/usr/src/app/static:ro
+      - media_content:/usr/src/app/media:ro
+    networks:
+      - org-tree
+    ports:
+      - "80:80"
+
+volumes:
+  postgres_data:
+  static_content:
+  media_content:

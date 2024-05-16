@@ -1,0 +1,14 @@
+# environment
+.env*
+
+# dirs
+postgres-data/
+venv/
+.idea/
+media/*
+**/__pycache__
+
+# files
+db.sqlite3
+!*media/.gitkeep
+*.pyc
